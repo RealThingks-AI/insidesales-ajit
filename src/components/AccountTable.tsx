@@ -342,12 +342,12 @@ const AccountTable = ({
                         </Badge> : column.field === 'tags' && account.tags ? <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <div className="flex flex-wrap gap-1 max-w-[180px]">
-                                {account.tags.slice(0, 2).map((tag, idx) => <Badge key={idx} variant="outline" className="text-xs truncate max-w-[80px] cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors" onClick={() => setTagFilter(tag)}>
-                                    {tag}
-                                  </Badge>)}
-                                {account.tags.length > 2 && <Badge variant="outline" className="text-xs shrink-0">
-                                    +{account.tags.length - 2}
+                              <div className="flex items-center gap-1">
+                                <Badge variant="outline" className="text-xs truncate max-w-[100px] cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors" onClick={() => setTagFilter(account.tags![0])}>
+                                  {account.tags[0]}
+                                </Badge>
+                                {account.tags.length > 1 && <Badge variant="outline" className="text-xs shrink-0">
+                                    +{account.tags.length - 1}
                                   </Badge>}
                               </div>
                             </TooltipTrigger>
