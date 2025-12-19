@@ -189,16 +189,16 @@ const UserDashboard = () => {
     enabled: !!user?.id
   });
 
-  // Fetch task reminders (due soon or overdue)
+  // Fetch task reminders (due soon or overdue) - only for current user
   const { data: taskReminders } = useQuery({
     queryKey: ['user-task-reminders', user?.id],
     queryFn: async () => {
-      const today = format(new Date(), 'yyyy-MM-dd');
+      if (!user?.id) return [];
       const weekFromNow = format(addDays(new Date(), 7), 'yyyy-MM-dd');
       const { data, error } = await supabase
         .from('tasks')
         .select('id, title, due_date, priority, status')
-        .or(`assigned_to.eq.${user?.id},created_by.eq.${user?.id}`)
+        .or(`assigned_to.eq.${user.id},created_by.eq.${user.id}`)
         .in('status', ['open', 'in_progress'])
         .lte('due_date', weekFromNow)
         .order('due_date', { ascending: true })
