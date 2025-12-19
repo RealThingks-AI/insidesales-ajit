@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, CalendarPlus } from "lucide-react";
 import { RowActionsDropdown, Edit, Trash2, Mail, Eye, UserPlus } from "../RowActionsDropdown";
 import { useUserDisplayNames } from "@/hooks/useUserDisplayNames";
 import { ContactColumnConfig } from "../ContactColumnCustomizer";
@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { AccountViewModal } from "../AccountViewModal";
 import { SendEmailModal } from "../SendEmailModal";
+import { MeetingModal } from "../MeetingModal";
 
 interface Contact {
   id: string;
@@ -66,6 +67,8 @@ export const ContactTableBody = ({
   const [accountViewOpen, setAccountViewOpen] = useState(false);
   const [emailContact, setEmailContact] = useState<Contact | null>(null);
   const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [meetingModalOpen, setMeetingModalOpen] = useState(false);
+  const [meetingContact, setMeetingContact] = useState<Contact | null>(null);
   
   // Get all unique user IDs that we need to fetch display names for
   const contactOwnerIds = [...new Set(pageContacts.map(c => c.contact_owner).filter(Boolean))];
@@ -323,6 +326,14 @@ export const ContactTableBody = ({
                         disabled: !contact.email
                       },
                       {
+                        label: "Create Meeting",
+                        icon: <CalendarPlus className="w-4 h-4" />,
+                        onClick: () => {
+                          setMeetingContact(contact);
+                          setMeetingModalOpen(true);
+                        }
+                      },
+                      {
                         label: "Convert to Lead",
                         icon: <UserPlus className="w-4 h-4" />,
                         onClick: () => handleConvertToLead(contact),
@@ -361,6 +372,25 @@ export const ContactTableBody = ({
           company_name: emailContact.company_name,
           position: emailContact.position,
         } : null}
+      />
+
+      {/* Meeting Modal */}
+      <MeetingModal
+        open={meetingModalOpen}
+        onOpenChange={setMeetingModalOpen}
+        meeting={meetingContact ? {
+          id: '',
+          subject: `Meeting with ${meetingContact.contact_name}`,
+          start_time: new Date().toISOString(),
+          end_time: new Date().toISOString(),
+          contact_id: meetingContact.id,
+          status: 'scheduled'
+        } : null}
+        onSuccess={() => {
+          setMeetingModalOpen(false);
+          setMeetingContact(null);
+          if (onRefresh) onRefresh();
+        }}
       />
     </div>
   );

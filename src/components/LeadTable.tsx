@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Search, ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, CalendarPlus } from "lucide-react";
 import { RowActionsDropdown, Edit, Trash2, Mail, RefreshCw, ListTodo } from "./RowActionsDropdown";
 import { LeadModal } from "./LeadModal";
 import { LeadColumnCustomizer, LeadColumnConfig } from "./LeadColumnCustomizer";
@@ -20,6 +20,7 @@ import { LeadActionItemsModal } from "./LeadActionItemsModal";
 import { LeadDeleteConfirmDialog } from "./LeadDeleteConfirmDialog";
 import { AccountViewModal } from "./AccountViewModal";
 import { SendEmailModal, EmailRecipient } from "./SendEmailModal";
+import { MeetingModal } from "./MeetingModal";
 
 interface Lead {
   id: string;
@@ -129,6 +130,8 @@ const LeadTable = ({
   const [accountViewOpen, setAccountViewOpen] = useState(false);
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailRecipient, setEmailRecipient] = useState<EmailRecipient | null>(null);
+  const [meetingModalOpen, setMeetingModalOpen] = useState(false);
+  const [meetingLead, setMeetingLead] = useState<Lead | null>(null);
 
   useEffect(() => {
     fetchLeads();
@@ -459,6 +462,14 @@ const LeadTable = ({
                               disabled: !lead.email
                             },
                             {
+                              label: "Create Meeting",
+                              icon: <CalendarPlus className="w-4 h-4" />,
+                              onClick: () => {
+                                setMeetingLead(lead);
+                                setMeetingModalOpen(true);
+                              }
+                            },
+                            {
                               label: "Action Items",
                               icon: <ListTodo className="w-4 h-4" />,
                               onClick: () => handleActionItems(lead)
@@ -538,6 +549,23 @@ const LeadTable = ({
         open={emailModalOpen}
         onOpenChange={setEmailModalOpen}
         recipient={emailRecipient}
+      />
+
+      <MeetingModal
+        open={meetingModalOpen}
+        onOpenChange={setMeetingModalOpen}
+        meeting={meetingLead ? {
+          id: '',
+          subject: `Meeting with ${meetingLead.lead_name}`,
+          start_time: new Date().toISOString(),
+          end_time: new Date().toISOString(),
+          lead_id: meetingLead.id,
+          status: 'scheduled'
+        } : null}
+        onSuccess={() => {
+          setMeetingModalOpen(false);
+          setMeetingLead(null);
+        }}
       />
     </div>;
 };
