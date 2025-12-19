@@ -85,8 +85,13 @@ const UserDashboard = () => {
   // Save dashboard preferences
   const savePreferencesMutation = useMutation({
     mutationFn: async ({ widgets, order, sizes }: { widgets: WidgetKey[], order: WidgetKey[], sizes: WidgetSizeConfig }) => {
-      if (!user?.id) return;
-      const { error } = await supabase
+      if (!user?.id) {
+        throw new Error("User not authenticated");
+      }
+      
+      console.log("Saving dashboard preferences:", { widgets, order, sizes, userId: user.id });
+      
+      const { data, error } = await supabase
         .from('dashboard_preferences')
         .upsert({
           user_id: user.id,
@@ -94,15 +99,24 @@ const UserDashboard = () => {
           card_order: order,
           layout_view: JSON.stringify(sizes),
           updated_at: new Date().toISOString(),
-        }, { onConflict: 'user_id' });
-      if (error) throw error;
+        }, { onConflict: 'user_id' })
+        .select();
+      
+      if (error) {
+        console.error("Error saving preferences:", error);
+        throw error;
+      }
+      
+      console.log("Preferences saved successfully:", data);
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dashboard-prefs', user?.id] });
       setCustomizeOpen(false);
       toast.success("Dashboard preferences saved");
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Mutation error:", error);
       toast.error("Failed to save preferences");
     },
   });
