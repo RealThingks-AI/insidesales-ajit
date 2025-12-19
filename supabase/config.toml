@@ -26,3 +26,6 @@ verify_jwt = false
 
 [functions.restore-backup]
 verify_jwt = false
+
+[functions.sync-profile-names]
+verify_jwt = false
