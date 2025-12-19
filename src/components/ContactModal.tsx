@@ -278,7 +278,7 @@ export const ContactModal = ({ open, onOpenChange, contact, onSuccess }: Contact
                             placeholder="Search accounts..."
                             value={accountSearch}
                             onChange={(e) => setAccountSearch(e.target.value)}
-                            className="h-8"
+                            inputSize="sm"
                           />
                         </div>
                         {filteredAccounts.map((account) => (

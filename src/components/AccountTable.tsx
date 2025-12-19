@@ -276,9 +276,9 @@ const AccountTable = ({
       {/* Header and Actions */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="relative w-80">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 pointer-events-none" />
-            <Input placeholder="Search accounts..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9 w-full" />
+          <div className="relative w-64">
+            <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 pointer-events-none" />
+            <Input placeholder="Search accounts..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" inputSize="sm" />
           </div>
           <AccountStatusFilter value={statusFilter} onValueChange={setStatusFilter} />
           {tagFilter && <div className="flex items-center gap-2">

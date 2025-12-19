@@ -311,9 +311,9 @@ const Meetings = () => {
       }} onMeetingUpdated={fetchMeetings} /> : <div className="space-y-4">
             {/* Search and Bulk Actions */}
             <div className="flex items-center gap-4">
-              <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search meetings..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
+              <div className="relative w-64">
+                <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Search meetings..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" inputSize="sm" />
               </div>
               
               <Select value={statusFilter} onValueChange={setStatusFilter}>

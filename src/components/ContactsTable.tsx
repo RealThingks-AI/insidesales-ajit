@@ -148,12 +148,13 @@ const ContactsTable = ({ columns, contacts, onEditContact, onDeleteContact }: Co
         <CardTitle>Contacts List</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="mb-4">
+        <div className="mb-4 w-64">
           <Input
             type="text"
             placeholder="Search contacts..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
+            inputSize="sm"
           />
         </div>
 

@@ -379,13 +379,14 @@ export const ListView = ({
       <div className="flex-shrink-0 p-4 bg-background border-b">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <div className="flex flex-col sm:flex-row gap-4 flex-1">
-            <div className="relative w-full sm:w-80">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 pointer-events-none" />
+            <div className="relative w-64">
+              <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 pointer-events-none" />
               <Input
-                placeholder="Search all deal details..."
+                placeholder="Search deals..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 w-full transition-all hover:border-primary/50 focus:border-primary"
+                className="pl-9"
+                inputSize="sm"
               />
             </div>
             

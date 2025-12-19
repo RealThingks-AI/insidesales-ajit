@@ -289,7 +289,7 @@ export const LeadModal = ({ open, onOpenChange, lead, onSuccess }: LeadModalProp
                             placeholder="Search accounts..."
                             value={accountSearch}
                             onChange={(e) => setAccountSearch(e.target.value)}
-                            className="h-8"
+                            inputSize="sm"
                           />
                         </div>
                         {filteredAccounts.map((account) => (

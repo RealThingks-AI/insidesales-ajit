@@ -270,7 +270,7 @@ export const DealsAdvancedFilter = ({
                   value={localFilters.searchTerm}
                   onChange={(e) => updateLocalFilter("searchTerm", e.target.value)}
                   placeholder="Search deals..."
-                  className="w-full"
+                  inputSize="sm"
                 />
               </div>
 

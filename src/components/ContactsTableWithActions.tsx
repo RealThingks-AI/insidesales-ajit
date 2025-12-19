@@ -160,12 +160,13 @@ const ContactsTable = ({ columns }: ContactsTableProps) => {
             onClearSelection={handleClearSelection}
           />
         )}
-        <div className="mb-4">
+        <div className="mb-4 w-64">
           <Input
             type="text"
             placeholder="Search contacts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            inputSize="sm"
           />
         </div>
         <div className="overflow-x-auto">
