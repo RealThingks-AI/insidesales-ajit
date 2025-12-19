@@ -123,7 +123,7 @@ export const TaskKanbanView = ({
                                   {task.due_date && (
                                     <div className={`flex items-center gap-1 ${getDueDateColor(task.due_date)}`}>
                                       <Calendar className="h-3 w-3" />
-                                      {format(new Date(task.due_date), 'MMM d')}
+                                      {format(new Date(task.due_date), 'dd/MM')}
                                     </div>
                                   )}
                                   {task.assigned_to && (

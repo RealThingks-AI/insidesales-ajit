@@ -122,7 +122,7 @@ export const MeetingAnalyticsDashboard = ({ onClose }: MeetingAnalyticsDashboard
     meetings.forEach(meeting => {
       const meetingDate = parseISO(meeting.start_time);
       const weekStart = startOfWeek(meetingDate, { weekStartsOn: 1 });
-      const weekKey = format(weekStart, 'MMM dd');
+      const weekKey = format(weekStart, 'dd/MM');
       
       if (!weeks[weekKey]) {
         weeks[weekKey] = { week: weekKey, meetings: 0, completed: 0, cancelled: 0 };
@@ -149,7 +149,7 @@ export const MeetingAnalyticsDashboard = ({ onClose }: MeetingAnalyticsDashboard
     const completedMeetings = meetings
       .filter(m => new Date(m.start_time) < now && m.status !== 'cancelled')
       .map(m => ({
-        date: format(parseISO(m.start_time), 'MMM dd'),
+        date: format(parseISO(m.start_time), 'dd/MM'),
         duration: differenceInMinutes(new Date(m.end_time), new Date(m.start_time))
       }));
 

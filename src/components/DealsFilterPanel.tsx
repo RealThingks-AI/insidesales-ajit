@@ -193,7 +193,7 @@ export const DealsFilterPanel = ({ filters, onFiltersChange, children }: DealsFi
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {localFilters.expectedClosingDateStart ? (
-                      format(localFilters.expectedClosingDateStart, "PPP")
+                      format(localFilters.expectedClosingDateStart, "dd/MM/yyyy")
                     ) : (
                       <span>From date</span>
                     )}
@@ -221,7 +221,7 @@ export const DealsFilterPanel = ({ filters, onFiltersChange, children }: DealsFi
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {localFilters.expectedClosingDateEnd ? (
-                      format(localFilters.expectedClosingDateEnd, "PPP")
+                      format(localFilters.expectedClosingDateEnd, "dd/MM/yyyy")
                     ) : (
                       <span>To date</span>
                     )}

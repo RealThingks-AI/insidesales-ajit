@@ -82,7 +82,7 @@ export const MeetingConflictWarning = ({
               <Clock className="h-3 w-3" />
               <span className="font-medium">{conflict.subject}</span>
               <span className="text-xs opacity-80">
-                ({format(new Date(conflict.start_time), 'MMM dd, HH:mm')} - {format(new Date(conflict.end_time), 'HH:mm')})
+                ({format(new Date(conflict.start_time), 'dd/MM, HH:mm')} - {format(new Date(conflict.end_time), 'HH:mm')})
               </span>
             </li>
           ))}

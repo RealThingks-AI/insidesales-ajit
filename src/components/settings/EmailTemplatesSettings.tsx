@@ -230,7 +230,7 @@ const EmailTemplatesSettings = () => {
                   <TableRow key={template.id}>
                     <TableCell className="font-medium">{template.name}</TableCell>
                     <TableCell>{template.subject}</TableCell>
-                    <TableCell>{format(new Date(template.created_at), 'MMM dd, yyyy')}</TableCell>
+                    <TableCell>{format(new Date(template.created_at), 'dd/MM/yyyy')}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button

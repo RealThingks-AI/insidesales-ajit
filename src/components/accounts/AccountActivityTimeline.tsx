@@ -199,7 +199,7 @@ export const AccountActivityTimeline = ({ accountId }: AccountActivityTimelinePr
                   </div>
                   <div className="flex flex-col items-end gap-1 flex-shrink-0">
                     <span className="text-xs text-muted-foreground">
-                      {format(new Date(item.date), 'MMM dd, yyyy')}
+                      {format(new Date(item.date), 'dd/MM/yyyy')}
                     </span>
                     {item.type === 'activity' && item.metadata?.type && (
                       <Badge variant="outline" className="text-xs capitalize">

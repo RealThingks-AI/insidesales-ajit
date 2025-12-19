@@ -1,3 +1,59 @@
+import { format } from 'date-fns';
+
+// Global date format configuration - DD/MM/YYYY
+export const GLOBAL_DATE_FORMAT = 'dd/MM/yyyy';
+export const GLOBAL_DATE_TIME_FORMAT = 'dd/MM/yyyy HH:mm';
+export const GLOBAL_DATE_TIME_FULL_FORMAT = 'dd/MM/yyyy HH:mm:ss';
+export const GLOBAL_SHORT_DATE_FORMAT = 'dd/MM';
+export const GLOBAL_MONTH_YEAR_FORMAT = 'MMMM yyyy';
+
+// Display utility - formats dates for UI display in DD/MM/YYYY
+export const formatDisplayDate = (date: Date | string | null | undefined): string => {
+  if (!date) return '-';
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return '-';
+    return format(dateObj, GLOBAL_DATE_FORMAT);
+  } catch {
+    return '-';
+  }
+};
+
+// Display utility - formats datetime for UI display in DD/MM/YYYY HH:mm
+export const formatDisplayDateTime = (date: Date | string | null | undefined): string => {
+  if (!date) return '-';
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return '-';
+    return format(dateObj, GLOBAL_DATE_TIME_FORMAT);
+  } catch {
+    return '-';
+  }
+};
+
+// Display utility - formats datetime with seconds for UI display
+export const formatDisplayDateTimeFull = (date: Date | string | null | undefined): string => {
+  if (!date) return '-';
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return '-';
+    return format(dateObj, GLOBAL_DATE_TIME_FULL_FORMAT);
+  } catch {
+    return '-';
+  }
+};
+
+// Display utility - short date format DD/MM
+export const formatDisplayShortDate = (date: Date | string | null | undefined): string => {
+  if (!date) return '-';
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return '-';
+    return format(dateObj, GLOBAL_SHORT_DATE_FORMAT);
+  } catch {
+    return '-';
+  }
+};
 
 // Centralized date conversion utilities for import/export
 
@@ -71,7 +127,17 @@ export class DateFormatUtils {
         }
       }
 
-      // Handle MM/DD/YYYY format
+      // Handle DD/MM/YYYY format (primary format)
+      const ddmmyyyySlashMatch = trimmedValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (ddmmyyyySlashMatch) {
+        const [, day, month, year] = ddmmyyyySlashMatch;
+        const parsedDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        if (!isNaN(parsedDate.getTime())) {
+          return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        }
+      }
+
+      // Handle MM/DD/YYYY format (legacy support)
       const mmddyyyyMatch = trimmedValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
       if (mmddyyyyMatch) {
         const [, month, day, year] = mmddyyyyMatch;
@@ -131,7 +197,7 @@ export class DateFormatUtils {
       console.warn(`DateFormatUtils: Error parsing date: ${trimmedValue}`, error);
     }
     
-    console.warn(`DateFormatUtils: Invalid date format: ${trimmedValue}. Please use YYYY-MM-DD format.`);
+    console.warn(`DateFormatUtils: Invalid date format: ${trimmedValue}. Please use DD/MM/YYYY format.`);
     return null;
   }
   

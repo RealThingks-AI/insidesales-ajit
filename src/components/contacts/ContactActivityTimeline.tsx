@@ -108,7 +108,7 @@ export const ContactActivityTimeline = ({ contactId }: ContactActivityTimelinePr
                     </div>
                   </div>
                   <span className="text-xs text-muted-foreground">
-                    {format(new Date(activity.activity_date), 'MMM d, yyyy h:mm a')}
+                    {format(new Date(activity.activity_date), 'dd/MM/yyyy HH:mm')}
                   </span>
                 </div>
                 

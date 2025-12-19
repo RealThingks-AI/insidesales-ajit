@@ -550,7 +550,7 @@ export const MeetingModal = ({ open, onOpenChange, meeting, onSuccess }: Meeting
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {startDate ? format(startDate, "dd-MMM-yyyy") : "Pick a date"}
+                        {startDate ? format(startDate, "dd/MM/yyyy") : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 z-50" align="start">

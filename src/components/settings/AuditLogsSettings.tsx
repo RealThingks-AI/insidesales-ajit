@@ -465,7 +465,7 @@ const AuditLogsSettings = () => {
                 const userName = log.user_id ? userNames[log.user_id] || `User ${log.user_id.substring(0, 8)}...` : 'System';
                 return <TableRow key={log.id}>
                         <TableCell className="font-mono text-sm">
-                          {format(new Date(log.created_at), 'MMM dd, HH:mm:ss')}
+                          {format(new Date(log.created_at), 'dd/MM, HH:mm:ss')}
                         </TableCell>
                         <TableCell>
                           <Badge variant={getActionBadgeVariant(log.action)} className="flex items-center gap-1 w-fit">

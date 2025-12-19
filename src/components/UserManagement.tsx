@@ -460,10 +460,10 @@ const UserManagement = () => {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        {user.last_sign_in_at ? format(new Date(user.last_sign_in_at), 'M/d/yyyy') : '—'}
+                        {user.last_sign_in_at ? format(new Date(user.last_sign_in_at), 'dd/MM/yyyy') : '—'}
                       </TableCell>
                       <TableCell>
-                        {format(new Date(user.created_at), 'M/d/yyyy')}
+                        {format(new Date(user.created_at), 'dd/MM/yyyy')}
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center justify-center gap-1">

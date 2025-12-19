@@ -352,7 +352,7 @@ export const LeadActionItemsModal = ({ open, onOpenChange, lead }: LeadActionIte
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dueDate ? format(dueDate, "PPP") : "Pick a date"}
+                        {dueDate ? format(dueDate, "dd/MM/yyyy") : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -417,7 +417,7 @@ export const LeadActionItemsModal = ({ open, onOpenChange, lead }: LeadActionIte
                           </div>
                           <div>
                             <span className="font-medium">Due Date:</span>{' '}
-                            {item.due_date ? format(new Date(item.due_date), 'PPP') : 'No due date'}
+                            {item.due_date ? format(new Date(item.due_date), 'dd/MM/yyyy') : 'No due date'}
                           </div>
                           <div>
                             <span className="font-medium">Status:</span>{' '}

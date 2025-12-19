@@ -226,7 +226,7 @@ export const MeetingsCalendarView = ({ meetings, onMeetingClick, onMeetingUpdate
 
       toast({
         title: "Meeting rescheduled",
-        description: `${pendingReschedule.meeting.subject} moved to ${format(pendingReschedule.newStart, 'MMM d, yyyy h:mm a')}`,
+        description: `${pendingReschedule.meeting.subject} moved to ${format(pendingReschedule.newStart, 'dd/MM/yyyy HH:mm')}`,
       });
 
       onMeetingUpdated?.();
@@ -251,9 +251,9 @@ export const MeetingsCalendarView = ({ meetings, onMeetingClick, onMeetingUpdate
     if (viewMode === 'month') {
       return format(currentDate, 'MMMM yyyy');
     } else if (viewMode === 'week') {
-      return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
+      return `${format(weekStart, 'd/MM')} - ${format(weekEnd, 'd/MM/yyyy')}`;
     }
-    return format(currentDate, 'EEEE, MMMM d, yyyy');
+    return format(currentDate, 'EEEE, dd/MM/yyyy');
   };
 
   return (

@@ -203,7 +203,7 @@ export const MeetingFollowUpsSection = ({ meetingId, disabled }: MeetingFollowUp
               </span>
               {followUp.due_date && (
                 <Badge variant="outline" className="text-xs">
-                  {format(new Date(followUp.due_date), 'MMM dd')}
+                  {format(new Date(followUp.due_date), 'dd/MM')}
                 </Badge>
               )}
               <Button

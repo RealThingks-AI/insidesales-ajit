@@ -244,7 +244,7 @@ export const TaskListView = ({
                       <TableCell>
                         {task.due_date ? (
                           <span className={getDueDateColor(task.due_date)}>
-                            {format(new Date(task.due_date), 'MMM d, yyyy')}
+                            {format(new Date(task.due_date), 'dd/MM/yyyy')}
                             {task.due_time && ` ${task.due_time}`}
                           </span>
                         ) : (

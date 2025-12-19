@@ -416,7 +416,7 @@ const BackupRestoreSettings = () => {
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
-                        {format(new Date(backup.created_at), 'M/d/yyyy, h:mm:ss a')}
+                        {format(new Date(backup.created_at), 'dd/MM/yyyy, HH:mm:ss')}
                       </span>
                       <span className="flex items-center gap-1">
                         <User className="h-3 w-3" />

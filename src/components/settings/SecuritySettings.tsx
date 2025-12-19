@@ -90,7 +90,7 @@ const SecuritySettings = () => {
             id: log.id.substring(0, 8),
             device: deviceInfo,
             location: 'Unknown Location',
-            lastActive: format(new Date(log.created_at), 'MMM dd, HH:mm'),
+            lastActive: format(new Date(log.created_at), 'dd/MM, HH:mm'),
             current: false,
             userAgent: userAgent,
             loginTime: log.created_at

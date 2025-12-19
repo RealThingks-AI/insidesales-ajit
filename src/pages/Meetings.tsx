@@ -394,7 +394,7 @@ const Meetings = () => {
                         </TableCell>
                         <TableCell className="font-medium">{meeting.subject}</TableCell>
                         <TableCell className="text-sm">
-                          {format(new Date(meeting.start_time), 'MMM dd, yyyy')}
+                          {format(new Date(meeting.start_time), 'dd/MM/yyyy')}
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">
                           {format(new Date(meeting.start_time), 'HH:mm')} - {format(new Date(meeting.end_time), 'HH:mm')}

@@ -146,7 +146,7 @@ export const DealCard = ({
             <p className="text-xs text-muted-foreground font-medium">
               {(() => {
                 try {
-                  return format(new Date(deal.expected_closing_date), 'MMM dd, yyyy');
+                  return format(new Date(deal.expected_closing_date), 'dd/MM/yyyy');
                 } catch {
                   return 'Invalid date';
                 }
@@ -158,7 +158,7 @@ export const DealCard = ({
         <div className="flex items-center justify-between pt-2 text-xs text-muted-foreground border-t border-border/30">
           <span className="font-medium">Updated: {deal.modified_at ? (() => {
             try {
-              return format(new Date(deal.modified_at), 'MMM dd');
+              return format(new Date(deal.modified_at), 'dd/MM');
             } catch {
               return 'Unknown';
             }

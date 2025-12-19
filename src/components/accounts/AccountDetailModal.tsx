@@ -194,13 +194,13 @@ export const AccountDetailModal = ({ open, onOpenChange, account, onUpdate }: Ac
                 {account.created_at && (
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3" />
-                    Created: {format(new Date(account.created_at), 'MMM dd, yyyy')}
+                    Created: {format(new Date(account.created_at), 'dd/MM/yyyy')}
                   </span>
                 )}
                 {account.updated_at && (
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3" />
-                    Updated: {format(new Date(account.updated_at), 'MMM dd, yyyy')}
+                    Updated: {format(new Date(account.updated_at), 'dd/MM/yyyy')}
                   </span>
                 )}
               </div>

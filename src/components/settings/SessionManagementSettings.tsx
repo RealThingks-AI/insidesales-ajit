@@ -229,7 +229,7 @@ const SessionManagementSettings = () => {
                           )}
                           <span className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
-                            Last active: {format(new Date(session.last_active_at), 'MMM d, h:mm a')}
+                            Last active: {format(new Date(session.last_active_at), 'dd/MM, HH:mm')}
                           </span>
                         </div>
                       </div>

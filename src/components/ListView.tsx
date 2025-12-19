@@ -109,7 +109,7 @@ export const ListView = ({
   const formatDate = (date: string | undefined) => {
     if (!date) return '-';
     try {
-      return format(new Date(date), 'MMM dd, yyyy');
+      return format(new Date(date), 'dd/MM/yyyy');
     } catch {
       return '-';
     }
