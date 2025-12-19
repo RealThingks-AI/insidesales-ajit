@@ -88,6 +88,7 @@ export const useAccountsImportExport = (onImportComplete: () => void) => {
         records.push({
           id: existingId,
           company_name: companyName,
+          email: record.email || null,
           region: record.region || null,
           country: record.country || null,
           website: record.website || null,
@@ -191,7 +192,7 @@ export const useAccountsImportExport = (onImportComplete: () => void) => {
       }
 
       const headers = [
-        'id', 'company_name', 'company_type', 'industry', 'tags', 'country', 
+        'id', 'company_name', 'email', 'company_type', 'industry', 'tags', 'country', 
         'status', 'website', 'region', 'notes', 'phone',
         'account_owner', 'created_by', 'modified_by', 'created_at', 'updated_at'
       ];

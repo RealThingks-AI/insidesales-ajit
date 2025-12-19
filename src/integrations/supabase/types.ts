@@ -74,6 +74,7 @@ export type Database = {
           created_at: string | null
           created_by: string | null
           deal_count: number | null
+          email: string | null
           id: string
           industry: string | null
           last_activity_date: string | null
@@ -98,6 +99,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           deal_count?: number | null
+          email?: string | null
           id?: string
           industry?: string | null
           last_activity_date?: string | null
@@ -122,6 +124,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           deal_count?: number | null
+          email?: string | null
           id?: string
           industry?: string | null
           last_activity_date?: string | null

@@ -32,6 +32,7 @@ export interface Account {
   account_owner?: string;
   industry?: string;
   phone?: string;
+  email?: string;
   created_at?: string;
   updated_at?: string;
   created_by?: string;
@@ -45,50 +46,55 @@ const defaultColumns: AccountColumnConfig[] = [{
   visible: true,
   order: 0
 }, {
+  field: 'email',
+  label: 'Email',
+  visible: true,
+  order: 1
+}, {
   field: 'company_type',
   label: 'Company Type',
   visible: true,
-  order: 1
+  order: 2
 }, {
   field: 'industry',
   label: 'Industry',
   visible: true,
-  order: 2
+  order: 3
 }, {
   field: 'tags',
   label: 'Tags',
   visible: true,
-  order: 3
+  order: 4
 }, {
   field: 'country',
   label: 'Country',
   visible: true,
-  order: 4
+  order: 5
 }, {
   field: 'status',
   label: 'Status',
   visible: true,
-  order: 5
+  order: 6
 }, {
   field: 'website',
   label: 'Website',
   visible: true,
-  order: 6
+  order: 7
 }, {
   field: 'account_owner',
   label: 'Account Owner',
   visible: true,
-  order: 7
+  order: 8
 }, {
   field: 'region',
   label: 'Region',
   visible: false,
-  order: 8
+  order: 9
 }, {
   field: 'phone',
   label: 'Phone',
   visible: false,
-  order: 9
+  order: 10
 }];
 interface AccountTableProps {
   showColumnCustomizer: boolean;
@@ -389,6 +395,7 @@ const AccountTable = ({
                             onClick: () => {
                               setEmailRecipient({
                                 name: account.company_name,
+                                email: account.email,
                                 company_name: account.company_name
                               });
                               setEmailModalOpen(true);
