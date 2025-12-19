@@ -64,10 +64,10 @@ export class UserNameUtils {
     return userIdMap[value.toLowerCase()] || defaultId;
   }
 
-  // Format ID for export (shortened to 8 characters)
+  // Format ID for export (keep full UUID for proper import matching)
   static formatIdForExport(id: string | null): string {
     if (!id) return '';
-    return id.substring(0, 8);
+    return id; // Keep full UUID for import/export roundtrip
   }
 
   // Format date/datetime for export (readable format)
