@@ -274,10 +274,7 @@ export const useAccountsImportExport = (onImportComplete: () => void) => {
         const row = headers.map(header => {
           let value = account[header as keyof typeof account];
           
-          // Shorten ID for readability (first 8 characters)
-          if (header === 'id' && value) {
-            value = (value as string).substring(0, 8);
-          }
+          // Keep full ID for proper import matching (don't shorten)
           
           // Format dates for readability
           if ((header === 'created_at' || header === 'updated_at') && value) {
