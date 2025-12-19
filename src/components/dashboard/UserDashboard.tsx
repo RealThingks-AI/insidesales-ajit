@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Users, FileText, Briefcase, TrendingUp, Clock, CheckCircle2, ArrowRight, Plus, Settings2, Calendar, Activity, Bell, AlertCircle } from "lucide-react";
 import { useState } from "react";
-import { DashboardCustomizeModal, WidgetKey, DEFAULT_WIDGETS } from "./DashboardCustomizeModal";
+import { DashboardCustomizeModal, WidgetKey, WidgetSize, WidgetSizeConfig, DEFAULT_WIDGETS } from "./DashboardCustomizeModal";
 import { toast } from "sonner";
 import { format, isAfter, isBefore, addDays } from "date-fns";
 
@@ -44,7 +44,7 @@ const UserDashboard = () => {
       if (!user?.id) return null;
       const { data, error } = await supabase
         .from('dashboard_preferences')
-        .select('visible_widgets, card_order')
+        .select('visible_widgets, card_order, layout_view')
         .eq('user_id', user.id)
         .maybeSingle();
       if (error) throw error;
@@ -53,7 +53,7 @@ const UserDashboard = () => {
     enabled: !!user?.id,
   });
 
-  // Get visible widgets and order from preferences or use defaults
+  // Get visible widgets, order, and sizes from preferences or use defaults
   const defaultWidgetKeys = DEFAULT_WIDGETS.map(w => w.key);
   const visibleWidgets: WidgetKey[] = dashboardPrefs?.visible_widgets 
     ? (dashboardPrefs.visible_widgets as WidgetKey[])
@@ -61,10 +61,15 @@ const UserDashboard = () => {
   const widgetOrder: WidgetKey[] = dashboardPrefs?.card_order 
     ? (dashboardPrefs.card_order as WidgetKey[])
     : defaultWidgetKeys;
+  const widgetSizes: WidgetSizeConfig = dashboardPrefs?.layout_view 
+    ? (typeof dashboardPrefs.layout_view === 'string' 
+        ? JSON.parse(dashboardPrefs.layout_view) 
+        : dashboardPrefs.layout_view as WidgetSizeConfig)
+    : {};
 
   // Save dashboard preferences
   const savePreferencesMutation = useMutation({
-    mutationFn: async ({ widgets, order }: { widgets: WidgetKey[], order: WidgetKey[] }) => {
+    mutationFn: async ({ widgets, order, sizes }: { widgets: WidgetKey[], order: WidgetKey[], sizes: WidgetSizeConfig }) => {
       if (!user?.id) return;
       const { error } = await supabase
         .from('dashboard_preferences')
@@ -72,6 +77,7 @@ const UserDashboard = () => {
           user_id: user.id,
           visible_widgets: widgets,
           card_order: order,
+          layout_view: JSON.stringify(sizes),
           updated_at: new Date().toISOString(),
         }, { onConflict: 'user_id' });
       if (error) throw error;
@@ -254,7 +260,7 @@ const UserDashboard = () => {
     switch (key) {
       case "leads":
         return (
-          <Card key={key} className="hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/leads')}>
+          <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/leads')}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">My Leads</CardTitle>
               <FileText className="w-4 h-4 text-blue-600" />
@@ -267,7 +273,7 @@ const UserDashboard = () => {
         );
       case "contacts":
         return (
-          <Card key={key} className="hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/contacts')}>
+          <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/contacts')}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">My Contacts</CardTitle>
               <Users className="w-4 h-4 text-green-600" />
@@ -280,7 +286,7 @@ const UserDashboard = () => {
         );
       case "deals":
         return (
-          <Card key={key} className="hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/deals')}>
+          <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer animate-fade-in" onClick={() => navigate('/deals')}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">My Deals</CardTitle>
               <Briefcase className="w-4 h-4 text-purple-600" />
@@ -293,7 +299,7 @@ const UserDashboard = () => {
         );
       case "actionItems":
         return (
-          <Card key={key} className="hover:shadow-lg transition-shadow animate-fade-in">
+          <Card className="h-full hover:shadow-lg transition-shadow animate-fade-in">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Action Items</CardTitle>
               <Clock className="w-4 h-4 text-orange-600" />
@@ -306,7 +312,7 @@ const UserDashboard = () => {
         );
       case "upcomingMeetings":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
@@ -343,7 +349,7 @@ const UserDashboard = () => {
         );
       case "taskReminders":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Bell className="w-5 h-5 text-primary" />
@@ -386,7 +392,7 @@ const UserDashboard = () => {
         );
       case "recentActivities":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="w-5 h-5 text-primary" />
@@ -418,7 +424,7 @@ const UserDashboard = () => {
         );
       case "performance":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />
@@ -445,7 +451,7 @@ const UserDashboard = () => {
         );
       case "quickActions":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
@@ -467,7 +473,7 @@ const UserDashboard = () => {
         );
       case "leadStatus":
         return (
-          <Card key={key} className="animate-fade-in">
+          <Card className="h-full animate-fade-in">
             <CardHeader>
               <CardTitle>Lead Status Overview</CardTitle>
             </CardHeader>
@@ -498,11 +504,19 @@ const UserDashboard = () => {
     }
   };
 
-  // Group widgets by section for layout
-  const statsKeys: WidgetKey[] = ["leads", "contacts", "deals", "actionItems"];
-  const newWidgetKeys: WidgetKey[] = ["upcomingMeetings", "taskReminders", "recentActivities"];
-  const performanceKeys: WidgetKey[] = ["performance", "quickActions"];
-  const fullWidthKeys: WidgetKey[] = ["leadStatus"];
+  // Get widget size class
+  const getWidgetSizeClass = (key: WidgetKey): string => {
+    const size = widgetSizes[key] || DEFAULT_WIDGETS.find(w => w.key === key)?.size || "medium";
+    switch (size) {
+      case "small": return "col-span-1";
+      case "medium": return "col-span-1 lg:col-span-2";
+      case "large": return "col-span-1 lg:col-span-3";
+      default: return "col-span-1";
+    }
+  };
+
+  // Get all visible widgets in order
+  const orderedVisibleWidgets = widgetOrder.filter(w => visibleWidgets.includes(w));
 
   return (
     <div className="p-6 space-y-8">
@@ -519,29 +533,14 @@ const UserDashboard = () => {
         </Button>
       </div>
 
-      {/* Quick Stats */}
-      {orderedStatsWidgets.length > 0 && (
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${Math.min(orderedStatsWidgets.length, 4)} gap-6`}>
-          {orderedStatsWidgets.map(renderWidget)}
-        </div>
-      )}
-
-      {/* New Widgets Row */}
-      {getOrderedWidgets(newWidgetKeys).length > 0 && (
-        <div className={`grid grid-cols-1 lg:grid-cols-${Math.min(getOrderedWidgets(newWidgetKeys).length, 3)} gap-6`}>
-          {getOrderedWidgets(newWidgetKeys).map(renderWidget)}
-        </div>
-      )}
-
-      {/* Performance Summary */}
-      {getOrderedWidgets(performanceKeys).length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {getOrderedWidgets(performanceKeys).map(renderWidget)}
-        </div>
-      )}
-
-      {/* Full Width Widgets */}
-      {getOrderedWidgets(fullWidthKeys).map(renderWidget)}
+      {/* Responsive Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+        {orderedVisibleWidgets.map(key => (
+          <div key={key} className={getWidgetSizeClass(key)}>
+            {renderWidget(key)}
+          </div>
+        ))}
+      </div>
 
       {/* Customize Modal */}
       <DashboardCustomizeModal
@@ -549,7 +548,8 @@ const UserDashboard = () => {
         onOpenChange={setCustomizeOpen}
         visibleWidgets={visibleWidgets}
         widgetOrder={widgetOrder}
-        onSave={(widgets, order) => savePreferencesMutation.mutate({ widgets, order })}
+        widgetSizes={widgetSizes}
+        onSave={(widgets, order, sizes) => savePreferencesMutation.mutate({ widgets, order, sizes })}
         isSaving={savePreferencesMutation.isPending}
       />
     </div>
