@@ -23,15 +23,17 @@ export interface WidgetSizeConfig {
 }
 
 const DEFAULT_WIDGETS: DashboardWidget[] = [
+  // Dashboard section - core widgets first
   { key: "leads", label: "My Leads", icon: <FileText className="w-4 h-4" />, visible: true, size: "small" },
   { key: "contacts", label: "My Contacts", icon: <Users className="w-4 h-4" />, visible: true, size: "small" },
   { key: "deals", label: "My Deals", icon: <Briefcase className="w-4 h-4" />, visible: true, size: "small" },
   { key: "actionItems", label: "Action Items", icon: <Clock className="w-4 h-4" />, visible: true, size: "small" },
+  { key: "quickActions", label: "Quick Actions", icon: <Zap className="w-4 h-4" />, visible: true, size: "medium" },
   { key: "upcomingMeetings", label: "Upcoming Meetings", icon: <Calendar className="w-4 h-4" />, visible: true, size: "medium" },
   { key: "taskReminders", label: "Task Reminders", icon: <Bell className="w-4 h-4" />, visible: true, size: "medium" },
   { key: "recentActivities", label: "Recent Activities", icon: <Activity className="w-4 h-4" />, visible: true, size: "medium" },
+  // Revenue Analytics section
   { key: "performance", label: "My Performance", icon: <TrendingUp className="w-4 h-4" />, visible: true, size: "large" },
-  { key: "quickActions", label: "Quick Actions", icon: <Zap className="w-4 h-4" />, visible: true, size: "medium" },
   { key: "leadStatus", label: "Lead Status Overview", icon: <BarChart3 className="w-4 h-4" />, visible: true, size: "large" },
 ];
 
