@@ -342,19 +342,19 @@ const AccountTable = ({
                         </Badge> : column.field === 'tags' && account.tags ? <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <div className="flex gap-1 max-w-[200px] overflow-hidden">
-                                {account.tags.slice(0, 2).map((tag, idx) => <Badge key={idx} variant="outline" className="text-xs whitespace-nowrap cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors" onClick={() => setTagFilter(tag)}>
+                              <div className="flex flex-wrap gap-1 max-w-[180px]">
+                                {account.tags.slice(0, 2).map((tag, idx) => <Badge key={idx} variant="outline" className="text-xs truncate max-w-[80px] cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors" onClick={() => setTagFilter(tag)}>
                                     {tag}
                                   </Badge>)}
-                                {account.tags.length > 2 && <Badge variant="outline" className="text-xs whitespace-nowrap">
+                                {account.tags.length > 2 && <Badge variant="outline" className="text-xs shrink-0">
                                     +{account.tags.length - 2}
                                   </Badge>}
                               </div>
                             </TooltipTrigger>
-                            <TooltipContent>
+                            <TooltipContent side="bottom" className="z-50">
                               <div className="flex flex-col gap-1">
                                 <span className="font-medium text-xs">All tags:</span>
-                                <div className="flex flex-wrap gap-1 max-w-[250px]">
+                                <div className="flex flex-wrap gap-1 max-w-[280px]">
                                   {account.tags.map((tag, idx) => <Badge key={idx} variant="secondary" className="text-xs cursor-pointer" onClick={() => setTagFilter(tag)}>
                                       {tag}
                                     </Badge>)}
