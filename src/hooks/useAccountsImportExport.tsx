@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { format } from 'date-fns';
 
 const validStatuses = ['New', 'Working', 'Warm', 'Hot', 'Nurture', 'Closed-Won', 'Closed-Lost'];
 const validTags = [
@@ -272,6 +273,20 @@ export const useAccountsImportExport = (onImportComplete: () => void) => {
       for (const account of data) {
         const row = headers.map(header => {
           let value = account[header as keyof typeof account];
+          
+          // Shorten ID for readability (first 8 characters)
+          if (header === 'id' && value) {
+            value = (value as string).substring(0, 8);
+          }
+          
+          // Format dates for readability
+          if ((header === 'created_at' || header === 'updated_at') && value) {
+            try {
+              value = format(new Date(value as string), 'MMM dd, yyyy HH:mm');
+            } catch {
+              // Keep original if parsing fails
+            }
+          }
           
           // Convert UUID to display name for user fields
           if ((header === 'account_owner' || header === 'created_by' || header === 'modified_by') && value) {
